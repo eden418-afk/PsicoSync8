@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PsicoSync.Views.NuevoTipoCitaPage"
+             Title="NuevoTipoCitaPage">
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <!-- Nombre -->
+            <Label Text="Nombre" FontSize="Medium"/>
+            <Entry x:Name="nombreEntry" Placeholder="Nombre"/>
+
+            <!-- Duración -->
+            <Label Text="Duración (minutos)" FontSize="Medium"/>
+            <Entry x:Name="duracionEntry" Placeholder="Duración (minutos)" Keyboard="Numeric"/>
+
+            <!-- Precio -->
+            <Label Text="Precio" FontSize="Medium"/>
+            <Entry x:Name="precioEntry" Placeholder="Precio" Keyboard="Numeric"/>
+
+            <!-- Guardar Button -->
+            <Button Text="Guardar" Clicked="OnSaveButtonClicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

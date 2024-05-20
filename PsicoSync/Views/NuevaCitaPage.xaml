@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PsicoSync.Views.NuevaCitaPage"
+             xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Nueva Cita"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <StackLayout Padding="20">
+            
+            <!-- Picker cita o renta-->
+            <Label Text="Selecciona Cita o Renta" 
+                   FontSize="Medium"/>
+
+            <Frame Padding="4, 2" Margin="0, 0, 0, 16">
+                <Grid ColumnDefinitions="auto, *" Padding="8, 0" ColumnSpacing="8">
+                    <Label
+                        Grid.Column="0"
+                        FontSize="Large"
+                        Text="{Static fontawesome:FontAwesomeIcons.ClipboardCheck}" 
+                        Style="{StaticResource LabelsIconosCitaDetalle}"
+                        VerticalOptions="Center"/>
+                    <Picker 
+                        Grid.Column="1"
+                        x:Name="tipoEventoPicker" 
+                        SelectedIndexChanged="OnEventTypeChanged"
+                        FontSize="Large">
+                        <Picker.Items>
+                            <x:String>Cita</x:String>
+                            <x:String>Renta</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+            </Frame>
+            
+            <!-- Modalidad presencial o en linea -->
+            <Frame x:Name="layoutModalidad" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}" Margin="0, 0, 0, 16" Padding="20, 18, 20, 8">
+                <StackLayout>
+                    <Label
+                        Text="Modalidad"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Margin="0, 0, 0, 4"/>
+
+                    <Label 
+                        Text="Modalidad" 
+                        FontSize="Small"/>
+
+                    <Frame Padding="4, 2" Margin="0, 0, 0, 16">
+                        <Grid ColumnDefinitions="auto, *" Padding="8, 0" ColumnSpacing="8">
+                            <Label
+                                Grid.Column="0"
+                                FontSize="Medium"
+                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardQuestion}" 
+                                Style="{StaticResource LabelsIconosCitaDetalle}"
+                                VerticalOptions="Center"/>
+                            <Picker 
+                                Grid.Column="1"
+                                x:Name="modalidadPicker" 
+                                SelectedIndexChanged="OnModalidadChanged">
+                                <Picker.Items>
+                                    <x:String>Presencial</x:String>
+                                    <x:String>En línea</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+
+            <!-- Tipo de cita -->
+            <Frame x:Name="layoutTipo" BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}" Margin="0, 0, 0, 16" Padding="20, 18, 20, 8">
+                <StackLayout>
+                    <Label
+                        Text="Tipo de Cita"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Margin="0, 0, 0, 4"/>
+
+                    <Label 
+                        Text="Tipo" 
+                        FontSize="Small"/>
+
+                    <Grid ColumnDefinitions="*, auto">
+                        <Frame Padding="4, 2" Margin="0, 0, 0, 0">
+                            <Grid ColumnDefinitions="auto, *" Padding="8, 0" ColumnSpacing="8">
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="Medium"
+                                    Text="{Static fontawesome:FontAwesomeIcons.ClipboardList}" 
+                                    Style="{StaticResource LabelsIconosCitaDetalle}"
+                                    VerticalOptions="Center"/>
+                                <Picker 
+                                    Grid.Column="1"
+                                    x:Name="tipoCitaPicker"
+                                    ItemsSource="{Binding TipoCitas}"
+                                    SelectedItem="{Binding TipoCita}"
+                                    ItemDisplayBinding="{Binding Nombre}">
+                                </Picker>
+                            </Grid>
+                        </Frame>
+                        
+                        <Button
+                            Grid.Column="1"
+                            FontSize="30"
+                            Text="{Static fontawesome:FontAwesomeIcons.Plus}"
+                            CornerRadius="30"
+                            VerticalOptions="Center"
+                            Padding="0"
+                            Margin="8, 0, 0, 0"
+                            Clicked="btnNuevoTipoCita_Clicked"/>
+                    </Grid>
+
+                    <Grid ColumnDefinitions=".35*, *" RowDefinitions="Auto, Auto" x:Name="layoutInfoTipoCita" IsVisible="False">
+                        <!-- Duracion -->
+                        <Label
+                            Grid.Column="0"
+                            Text="Duracion:"
+                            FontSize="Medium"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding TipoCita.DuracionMinutos, StringFormat='{0} minutos'}"
+                            FontSize="Medium"
+                            HorizontalOptions="EndAndExpand"/>
+
+                        <!-- Precio -->
+                        <Label
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Text="Precio:"
+                            FontSize="Medium"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Text="{Binding TipoCita.Precio, StringFormat='{0:C2}'}"
+                            FontSize="Medium"
+                            HorizontalOptions="EndAndExpand"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <!-- Fecha y hora -->
+            <Frame BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}" Margin="0, 0, 0, 16">
+                <StackLayout>
+                    <Label 
+                        Text="Fecha y Hora"
+                        FontSize="Large"
+                        HorizontalOptions="Center"/>
+
+                    <Label Text="Fecha" 
+                           FontSize="Small" />
+
+                    <Frame Padding="4,2">
+                        <Grid ColumnDefinitions="auto, *" Padding="8, 0" ColumnSpacing="8">
+                            <Label
+                                Grid.Column="0"
+                                FontSize="Medium"
+                                Text="{Static fontawesome:FontAwesomeIcons.Calendar}" 
+                                Style="{StaticResource LabelsIconosCitaDetalle}"
+                                VerticalOptions="Center"/>
+                            <DatePicker 
+                                Grid.Column="1"
+                                x:Name="fechaPicker"/>
+                        </Grid>
+                    </Frame>
+
+                    <Label 
+                        Text="Hora" 
+                        FontSize="Small" />
+                    <Frame Padding="4, 2">
+                        <Grid ColumnDefinitions="auto, *" Padding="8, 0" ColumnSpacing="8">
+                            <Label
+                                Grid.Column="0"
+                                FontSize="Medium"
+                                Text="{Static fontawesome:FontAwesomeIcons.Clock}" 
+                                Style="{StaticResource LabelsIconosCitaDetalle}"
+                                VerticalOptions="Center"/>
+                            <TimePicker 
+                                Grid.Column="1"
+                                x:Name="horaPicker"/>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+
+            <!-- Cliente -->
+            <Frame BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}" Margin="0, 0, 0, 16">
+                <StackLayout>
+                    <Label 
+                        Text="Información del Cliente"
+                        FontSize="Large"
+                        HorizontalOptions="Center"/>
+
+                    <Label Text="Cliente" FontSize="Small" />
+                    <Grid ColumnDefinitions="*, auto">
+                        <Frame Padding="4,2">
+                            <Grid ColumnDefinitions="auto, *" Padding="8, 0" ColumnSpacing="8">
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="Medium"
+                                    Text="{Static fontawesome:FontAwesomeIcons.User}" 
+                                    Style="{StaticResource LabelsIconosCitaDetalle}"
+                                    VerticalOptions="Center"/>
+                                <Picker 
+                                    Grid.Column="1"
+                                    x:Name="clientePicker"
+                                    ItemsSource="{Binding Clientes}"
+                                    SelectedItem="{Binding Cliente}"
+                                    ItemDisplayBinding="{Binding Nombre}"/>
+                            </Grid>
+                        </Frame>
+
+                        <Button
+                            Grid.Column="1"
+                            FontSize="30"
+                            Text="{Static fontawesome:FontAwesomeIcons.Plus}"
+                            CornerRadius="30"
+                            VerticalOptions="Center"
+                            Padding="0"
+                            Margin="8, 0, 0, 0"
+                            Clicked="btnNuevoCliente_Clicked"/>
+                    </Grid>
+
+                    <StackLayout x:Name="layoutInfoCliente" IsVisible="False">
+                        <!-- Nombre -->
+                        <Grid 
+                            IsVisible="False"
+                            ColumnDefinitions=".45*, *"
+                            Margin="0, 4">
+                            <Label
+                            Grid.Column="0"
+                            Text="Nombre:"
+                            FontSize="Medium"/>
+
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Cliente.Nombre}"
+                                FontSize="Medium"/>
+                        </Grid>
+
+                        <!-- Edad -->
+                        <Grid 
+                            ColumnDefinitions=".45*, *"
+                            Margin="0, 4">
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="2"
+                                Text="Edad:"
+                                FontSize="Medium"/>
+
+                            <Label
+                                Grid.Column="1"
+                                Grid.Row="2"
+                                Text="{Binding Cliente.Edad, StringFormat='{0} años'}"
+                                FontSize="Medium"/>
+                        </Grid>
+
+                        <BoxView HeightRequest="1" Color="{StaticResource White}"/>
+
+                        <!-- Ocupacion -->
+                        <Grid ColumnDefinitions=".45*, *" Margin="0, 4">
+                            <Label
+                                Grid.Column="0"
+                                Grid.Row="12"
+                                Text="Ocupación:"
+                                FontSize="Medium"/>
+
+                            <Label
+                                Grid.Column="1"
+                                Grid.Row="12"
+                                Text="{Binding Cliente.Ocupacion}"
+                                FontSize="Medium"/>
+                        </Grid>
+
+                        <Frame Padding="18, 6" BorderColor="Transparent">
+                            <toolkit:Expander>
+                                <toolkit:Expander.Header>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Más información" FontSize="Medium"/>
+                                        <Label 
+                                            Text="{Static fontawesome:FontAwesomeIcons.ChevronDown}" 
+                                            FontFamily="FAS"
+                                            HorizontalOptions="EndAndExpand" 
+                                            FontSize="Small"
+                                            VerticalOptions="Center"/>
+                                    </StackLayout>
+                                </toolkit:Expander.Header>
+
+                                <StackLayout Margin="0, 12, 0, 0">
+
+                                    <!-- Fecha de nacimiento -->
+                                    <Grid ColumnDefinitions=".45*, *" Margin="0, 4">
+                                        <Label
+                                            Text="Fecha de nacimiento:"
+                                            FontSize="Medium"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding Cliente.FechaNacimientoString}"
+                                            FontSize="Medium"
+                                            HorizontalOptions="EndAndExpand"/>
+                                    </Grid>
+
+                                    <BoxView HeightRequest="1" Grid.Row="9" Grid.ColumnSpan="2" Color="{StaticResource Gray100}"/>
+
+                                    <!-- Correo -->
+                                    <Grid ColumnDefinitions=".45*, *" Margin="0, 4">
+                                        <Label
+                                            Text="Correo:"
+                                            FontSize="Medium"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding Cliente.Correo}"
+                                            FontSize="Medium"
+                                            HorizontalOptions="EndAndExpand"/>
+                                    </Grid>
+
+                                    <BoxView HeightRequest="1" Grid.Row="9" Grid.ColumnSpan="2" Color="{StaticResource Gray100}"/>
+
+                                    <!-- Telefono -->
+                                    <Grid ColumnDefinitions=".45*, *" Margin="0, 4">
+                                        <Label
+                                            Text="Teléfono:"
+                                            FontSize="Medium"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding Cliente.Telefono}"
+                                            FontSize="Medium"
+                                            HorizontalOptions="EndAndExpand"/>
+                                    </Grid>
+
+                                    <BoxView HeightRequest="1" Grid.Row="9" Grid.ColumnSpan="2" Color="{StaticResource Gray100}"/>
+
+                                    <!-- Sexo -->
+                                    <Grid ColumnDefinitions=".45*, *" Margin="0, 4">
+                                        <Label
+                                            Text="Sexo:"
+                                            FontSize="Medium"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding Cliente.Sexo}"
+                                            FontSize="Medium"
+                                            HorizontalOptions="EndAndExpand"/>
+                                    </Grid>
+
+                                    <BoxView HeightRequest="1" Grid.Row="9" Grid.ColumnSpan="2" Color="{StaticResource Gray100}"/>
+
+                                    <!-- Antecedentes medicos -->
+                                    <Label
+                                        Grid.Column="0"
+                                        Grid.Row="8"
+                                        Text="Antecedentes médicos:"
+                                        FontSize="Medium"
+                                        Margin="0, 4"/>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.Row="8"
+                                        Text="{Binding Cliente.AntecedentesMedicos}"
+                                        FontSize="Medium"
+                                        Margin="0, 0, 0, 8"/>
+
+                                    <BoxView HeightRequest="1" Grid.Row="9" Grid.ColumnSpan="2" Color="{StaticResource Gray100}"/>
+
+                                    <!-- Antecedentes familiares -->
+                                    <Label
+                                        Grid.Column="0"
+                                        Grid.Row="10"
+                                        Text="Antecedentes familiares:"
+                                        FontSize="Medium"
+                                        Margin="0, 4"/>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Grid.Row="10"
+                                        Text="{Binding Cliente.AntecedentesFamiliares}"
+                                        FontSize="Medium"
+                                        Margin="0, 0, 0, 4"/>
+
+                                </StackLayout>
+                            </toolkit:Expander>
+                        </Frame>
+
+                    </StackLayout>
+
+                </StackLayout>
+            </Frame>
+
+            <!-- Descripcion -->
+            <Frame BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}" Margin="0, 0, 0, 16" Padding="20, 18, 20, 8">
+                <StackLayout>
+                    <Label
+                        Text="Descripción"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Margin="0, 0, 0, 4"/>
+
+                    <Label 
+                        Text="Descripción" 
+                        FontSize="Small"/>
+
+                    <Frame Padding="4, 2" Margin="0, 0, 0, 16">
+                        <Editor
+                            x:Name="descripcionEntry"
+                            VerticalOptions="StartAndExpand"
+                            HeightRequest="200"
+                            Keyboard="Chat"
+                            Placeholder="Escriba aquí la descripción de la cita..."/>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+
+            <Button Text="Guardar" 
+                    Clicked="OnSaveButtonClicked" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PsicoSync.Views.NuevoClientePage"
+             Title="NuevoClientePage">
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <!-- Nombre -->
+            <Label Text="Nombre" FontSize="Medium"/>
+            <Entry x:Name="nombreEntry" Placeholder="Nombre"/>
+
+            <!-- Edad -->
+            <Label Text="Edad" FontSize="Medium"/>
+            <Entry x:Name="edadEntry" Placeholder="Edad" Keyboard="Numeric"/>
+
+            <!-- Ocupación -->
+            <Label Text="Ocupación" FontSize="Medium"/>
+            <Entry x:Name="ocupacionEntry" Placeholder="Ocupación"/>
+
+            <!-- Fecha de Nacimiento -->
+            <Label Text="Fecha de Nacimiento" FontSize="Medium"/>
+            <DatePicker x:Name="fechaNacimientoPicker"/>
+
+            <!-- Antecedentes Médicos -->
+            <Label Text="Antecedentes Médicos" FontSize="Medium"/>
+            <Editor x:Name="antecedentesMedicosEditor" Placeholder="Antecedentes Médicos"/>
+
+            <!-- Antecedentes Familiares -->
+            <Label Text="Antecedentes Familiares" FontSize="Medium"/>
+            <Editor x:Name="antecedentesFamiliaresEditor" Placeholder="Antecedentes Familiares"/>
+
+            <!-- Sexo -->
+            <Label Text="Sexo" FontSize="Medium"/>
+            <Picker x:Name="sexoPicker">
+                <Picker.Items>
+                    <x:String>Masculino</x:String>
+                    <x:String>Femenino</x:String>
+                    <x:String>Otro</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- Teléfono -->
+            <Label Text="Teléfono" FontSize="Medium"/>
+            <Entry x:Name="telefonoEntry" Placeholder="Teléfono" Keyboard="Telephone"/>
+
+            <!-- Correo -->
+            <Label Text="Correo" FontSize="Medium"/>
+            <Entry x:Name="correoEntry" Placeholder="Correo" Keyboard="Email"/>
+
+            <!-- Guardar Button -->
+            <Button Text="Guardar" Clicked="OnSaveButtonClicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

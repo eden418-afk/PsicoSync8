@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
+             x:Class="PsicoSync.Views.CitaPage"
+             Title="Cita"
+             BackgroundColor="{StaticResource Gray100}">
+    
+    <RefreshView>
+        <ScrollView>
+            <StackLayout Margin="12, 8">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                    <Label 
+                        Text="{Static fontawesome:FontAwesomeIcons.ClipboardList}" 
+                        Style="{StaticResource LabelsIconosCitaHome}"
+                        FontSize="Title"/>
+                    <Label 
+                        Text="{Binding Cita.Nombre}"
+                        FontSize="Title"/>
+                </StackLayout>
+
+                <Frame VerticalOptions="FillAndExpand">
+                    <StackLayout>
+                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *" ColumnSpacing="12" RowSpacing="12">
+                            <Label 
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="{Static fontawesome:FontAwesomeIcons.User}" 
+                                Style="{StaticResource LabelsIconosCitaDetalle}"/>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{Binding Cita.Cliente}"
+                                Style="{StaticResource LabelsCitaDetalle}"/>
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="{Static fontawesome:FontAwesomeIcons.Calendar}" 
+                                Style="{StaticResource LabelsIconosCitaDetalle}"/>
+                            <Label 
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Text="{Binding Cita.FechaString}"
+                                Style="{StaticResource LabelsCitaDetalle}"/>
+                        </Grid>
+
+                        <!-- Descripción -->
+                        <Label
+                            Margin="0, 12, 0, 0"
+                            Text="Descripción"
+                            Style="{StaticResource LabelsCitaHome}"/>
+                        <Label
+                            Text="This code retrieves the color from the static resource and sets it as the background color of the button. Make sure to include the necessary namespaces (Microsoft.Maui.Controls and Microsoft.Maui.Controls.Xaml) at the top of your file."/>
+                        
+                        <!-- Observaciones -->
+                        <Label
+                            Margin="0, 12, 0, 0"
+                            Text="Observaciones"
+                            Style="{StaticResource LabelsCitaHome}"/>
+                        <Border>
+                            <Editor
+                                VerticalOptions="StartAndExpand"
+                                Text="{Binding Cita.Observaciones}"
+                                HeightRequest="200"
+                                Keyboard="Chat"
+                                Placeholder="Escriba aquí el resultado de la cita..."/>
+                        </Border>
+                        
+                        <!-- Botón de guardar -->
+                        <Button
+                            VerticalOptions="EndAndExpand"
+                            Margin="0, 12, 0, 0"
+                            Text="Finalizar"
+                            BackgroundColor="Green"/>
+                        
+                        <!-- Boton de Cancelar -->
+                        <Button
+                            Margin="0, 12, 0, 0"
+                            Text="Cancelar"
+                            BackgroundColor="Red"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>
