@@ -12,7 +12,7 @@
             Grid.Row="0"
             HorizontalOptions="Center"
             Padding="2">
-            <Grid ColumnDefinitions=".3*, .3*, .3*">
+            <Grid ColumnDefinitions=".3*, Auto, Auto">
                 <Button
                     Grid.Column="0"
                     x:Name="btnTodo"
@@ -37,12 +37,22 @@
             </Grid>
         </Frame>
 
-        <SearchBar
+        <Frame
             Grid.Row="1"
-            Placeholder="Buscar..."
-            Text="{Binding SearchText}"
-            SearchCommand="{Binding SearchCommand}"
-            SearchCommandParameter="{Binding SearchText}"/>
+            Padding="16, 2"
+            Margin="16, 8">
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                <Label
+                    VerticalOptions="Center"
+                    Text="{Static fontawesome:FontAwesomeIcons.MagnifyingGlass}"
+                    Style="{StaticResource LabelsIconosCitaHome}"/>
+                <Entry
+                    Grid.Column="1"
+                    Text="{Binding SearchText}"
+                    Placeholder="Buscar..."/>
+            </Grid>
+        </Frame>
+
 
         <ListView
             Grid.Row="2"
@@ -50,7 +60,7 @@
             ItemTapped="ListViewClientes_ItemTapped"
             Refreshing="ListViewClientes_Refreshing"
             IsPullToRefreshEnabled="True"
-            ItemsSource="{Binding Clientes}"
+            ItemsSource="{Binding ClientesFiltrados}"
             HasUnevenRows="True"
             SeparatorVisibility="None">
             <ListView.ItemTemplate>
@@ -62,19 +72,6 @@
                                     RowDefinitions="Auto, Auto, Auto"
                                     ColumnDefinitions="*, Auto">
                                     <StackLayout Spacing="6">
-                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
-                                            <!-- Paciente O Psicologo -->
-                                            <Label
-                                                Grid.Column="0"
-                                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardCheck}"
-                                                Style="{StaticResource LabelsIconosCitaHome}"/>
-
-                                            <Label 
-                                                Grid.Column="1"
-                                                Text="{Binding Tipo}"
-                                                Style="{StaticResource LabelsCitaHome}"/>
-                                        </Grid>
-
                                         <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
                                             <!-- Nombre -->
                                             <Label
@@ -90,19 +87,18 @@
                                         </Grid>
 
                                         <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
-                                            <!-- Edad -->
+                                            <!-- Paciente O Psicologo -->
                                             <Label
-                                                Grid.Row="2"
                                                 Grid.Column="0"
-                                                Text="{Static fontawesome:FontAwesomeIcons.Calendar}"
+                                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardCheck}"
                                                 Style="{StaticResource LabelsIconosCitaHome}"/>
 
                                             <Label 
-                                                Grid.Row="2"
                                                 Grid.Column="1"
-                                                Text="{Binding Edad, StringFormat='{0:dd MMM yy HH:mm}'}"
+                                                Text="{Binding Tipo}"
                                                 Style="{StaticResource LabelsCitaHome}"/>
                                         </Grid>
+
                                     </StackLayout>
 
                                     <!-- Flecha Derecha -->

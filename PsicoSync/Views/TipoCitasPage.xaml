@@ -35,12 +35,21 @@
             </Grid>
         </Frame>
 
-        <SearchBar
+        <Frame
             Grid.Row="1"
-            Placeholder="Buscar..."
-            Text="{Binding SearchText}"
-            SearchCommand="{Binding SearchCommand}"
-            SearchCommandParameter="{Binding SearchText}"/>
+            Padding="16, 2"
+            Margin="16, 8">
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                <Label
+                    VerticalOptions="Center"
+                    Text="{Static fontawesome:FontAwesomeIcons.MagnifyingGlass}"
+                    Style="{StaticResource LabelsIconosCitaHome}"/>
+                <Entry
+                    Grid.Column="1"
+                    Text="{Binding SearchText}"
+                    Placeholder="Buscar..."/>
+            </Grid>
+        </Frame>
 
         <ListView
             Grid.Row="2"
@@ -48,7 +57,7 @@
             ItemTapped="ListViewTipoCitas_ItemTapped"
             Refreshing="ListViewTipoCitas_Refreshing"
             IsPullToRefreshEnabled="True"
-            ItemsSource="{Binding TipoCitas}"
+            ItemsSource="{Binding TipoCitasFiltradas}"
             HasUnevenRows="True"
             SeparatorVisibility="None">
             <ListView.ItemTemplate>

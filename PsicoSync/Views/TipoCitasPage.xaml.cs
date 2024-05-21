@@ -2,21 +2,26 @@ using PsicoSync.Helpers;
 using PsicoSync.Model;
 using PsicoSync.Servicios;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text;
 
 namespace PsicoSync.Views;
 
 public partial class TipoCitasPage : ContentPage
 {
     ServicioTipoCita servicioTipoCitas = new();
-    ObservableCollection<objTipoCita> TipoCitas { get; set; }
+    public ObservableCollection<objTipoCita> TipoCitas { get; set; }
+    public ObservableCollection<objTipoCita> TipoCitasFiltradas { get; set; }
 
     ColorHandler Colores = new();
     public TipoCitasPage()
 	{
 		InitializeComponent();
-        BindingContext = this;
 
         TipoCitas = new ObservableCollection<objTipoCita>();
+        TipoCitasFiltradas = new ObservableCollection<objTipoCita>();
+
+        BindingContext = this;
     }
 
     protected override void OnAppearing()
@@ -28,12 +33,13 @@ public partial class TipoCitasPage : ContentPage
     private async void CargarTipoCitas()
     {
         TipoCitas.Clear();
+        TipoCitasFiltradas.Clear();
         var tipoCitas = await servicioTipoCitas.GetItemsAsync();
         foreach (var tipoCita in tipoCitas)
         {
             TipoCitas.Add(tipoCita);
+            TipoCitasFiltradas.Add(tipoCita);
         }
-        ListViewTipoCitas.ItemsSource = TipoCitas;
     }
 
     private void ListViewTipoCitas_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -57,5 +63,58 @@ public partial class TipoCitasPage : ContentPage
     {
         CargarTipoCitas();
         ListViewTipoCitas.EndRefresh();
+    }
+
+    private void FiltrarTipoCitas()
+    {
+        var tipoCitasFiltradas = TipoCitas.AsEnumerable();
+
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            var searchTextLower = RemoveDiacritics(SearchText.ToLower());
+            tipoCitasFiltradas = tipoCitasFiltradas.Where(tc =>
+                    RemoveDiacritics(tc.Nombre).ToLower().Contains(searchTextLower) ||
+                    tc.DuracionMinutos.ToString().Contains(searchTextLower) ||
+                    tc.Precio.ToString().Contains(searchTextLower));
+        }
+
+        TipoCitasFiltradas.Clear();
+        foreach (var tipoCita in tipoCitasFiltradas)
+        {
+            TipoCitasFiltradas.Add(tipoCita);
+        }
+    }
+
+    private string RemoveDiacritics(string text)
+    {
+        var normalizedString = text.Normalize(NormalizationForm.FormD);
+        var stringBuilder = new StringBuilder();
+
+        foreach (var c in normalizedString)
+        {
+            var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+            if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+            {
+                stringBuilder.Append(c);
+            }
+        }
+
+        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+    }
+
+
+    string searchText = "";
+    public string SearchText
+    {
+        get => searchText;
+        set
+        {
+            if (searchText != value)
+            {
+                searchText = value;
+                OnPropertyChanged();
+                FiltrarTipoCitas();
+            }
+        }
     }
 }

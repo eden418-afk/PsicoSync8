@@ -2,9 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PsicoSync.Views.NuevoClientePage"
-             Title="NuevoClientePage">
+             Title="Cliente">
     <ScrollView>
         <StackLayout Padding="20">
+            
+            <!-- Tipo -->
+            <Label Text="Tipo" FontSize="Medium"/>
+            <Picker x:Name="tipoPicker">
+                <Picker.Items>
+                    <x:String>Paciente</x:String>
+                    <x:String>Psicologo</x:String>
+                </Picker.Items>
+            </Picker>
 
             <!-- Nombre -->
             <Label Text="Nombre" FontSize="Medium"/>
