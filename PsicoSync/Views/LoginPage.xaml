@@ -23,7 +23,8 @@
             <Frame Padding="4, 2" Margin="0, 0, 0, 36">
                 <Entry
                     x:Name="passwordEntry"
-                    Placeholder="Contraseña"/>
+                    Placeholder="Contraseña"
+                    IsPassword="True"/>
             </Frame>
 
             <!--  boton login  -->

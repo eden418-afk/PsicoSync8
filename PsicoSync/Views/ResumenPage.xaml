@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="PsicoSync.Views.ResumenPage"
              Title="PsicoSync">
     
     <ScrollView>
-        <VerticalStackLayout
-        Spacing="25"
-        Padding="30,0"
-        VerticalOptions="StartAndExpand">
+        <StackLayout>
 
-            <Label
-            HorizontalOptions="Center"
-            FontSize="Title"
-            Text="Resumen"/>
+            <Frame
+                Padding="30"
+                Margin="30, 12"
+                HeightRequest="350"
+                BorderColor="{StaticResource Primary}">
+                <StackLayout>
+                    <Label x:Name="labelIngresos" FontSize="20" />
+                    <micro:ChartView x:Name="preciosTotalesChart" HeightRequest="300"/>
+                </StackLayout>
+            </Frame>
 
-        </VerticalStackLayout>
+            <Frame
+                Padding="30"
+                Margin="30, 12"
+                HeightRequest="350"
+                BorderColor="{StaticResource Primary}">
+                <StackLayout>
+                    <Label Text="Citas por Tipo de Cita" FontSize="20" />
+                    <micro:ChartView x:Name="chartTipoCitasNumero" HeightRequest="300"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                Padding="30"
+                Margin="30, 12"
+                HeightRequest="350"
+                BorderColor="{StaticResource Primary}">
+                <StackLayout>
+                    <Label x:Name="labelTipoCitasIngresos" FontSize="20" />
+                    <micro:ChartView x:Name="chartTipoCitasIngresos" HeightRequest="300"/>
+                </StackLayout>
+            </Frame>
+
+
+        </StackLayout>
     </ScrollView>
 </ContentPage>
