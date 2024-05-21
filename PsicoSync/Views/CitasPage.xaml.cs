@@ -2,14 +2,16 @@ using PsicoSync.Helpers;
 using PsicoSync.Model;
 using PsicoSync.Servicios;
 using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text;
 
 namespace PsicoSync.Views;
 
 public partial class CitasPage : ContentPage
 {
     ServicioCita servicioCitas = new();
-    ObservableCollection<objCita> Citas { get; set; }
-    ObservableCollection<objCita> CitasFiltradas { get; set; }
+    public ObservableCollection<objCita> Citas { get; set; }
+    public ObservableCollection<objCita> CitasFiltradas { get; set; }
 
     ColorHandler Colores = new();
 
@@ -17,10 +19,11 @@ public partial class CitasPage : ContentPage
     public CitasPage()
 	{
 		InitializeComponent();
-        BindingContext = this;
 
-        Citas = [];
-        CitasFiltradas = [];
+        Citas = new ObservableCollection<objCita>();
+        CitasFiltradas = new ObservableCollection<objCita>();
+
+        BindingContext = this;
     }
 
     protected override void OnAppearing()
@@ -32,13 +35,15 @@ public partial class CitasPage : ContentPage
     private async void CargarCitas()
     {
         Citas.Clear();
+        CitasFiltradas.Clear();
         var citas = await servicioCitas.GetItemsAsync();
         foreach (var cita in citas)
         {
             Citas.Add(cita);
             CitasFiltradas.Add(cita);
         }
-        ListViewCitas.ItemsSource = Citas;
+        SearchText = "";
+        
     }
 
     private void FiltrarCitas()
@@ -56,13 +61,13 @@ public partial class CitasPage : ContentPage
 
         if (!string.IsNullOrWhiteSpace(SearchText))
         {
-            var searchTextLower = SearchText.ToLower();
+            var searchTextLower = RemoveDiacritics(SearchText.ToLower());
             citasFiltradas = citasFiltradas.Where(c =>
-                (c.Tipo != null && c.Tipo.ToLower().Contains(searchTextLower)) ||
-                (c.Modalidad != null && c.Modalidad.ToLower().Contains(searchTextLower)) ||
-                (c.Cliente != null && c.Cliente.Nombre != null && c.Cliente.Nombre.ToLower().Contains(searchTextLower)) ||
-                (c.TipoCita != null && c.TipoCita.Nombre != null && c.TipoCita.Nombre.ToLower().Contains(searchTextLower)) ||
-                (c.FechaString != null && c.FechaString.ToLower().Contains(searchTextLower)));
+                (c.Tipo != null && RemoveDiacritics(c.Tipo).ToLower().Contains(searchTextLower)) ||
+                (c.Modalidad != null && RemoveDiacritics(c.Modalidad).ToLower().Contains(searchTextLower)) ||
+                (c.Cliente != null && c.Cliente.Nombre != null && RemoveDiacritics(c.Cliente.Nombre).ToLower().Contains(searchTextLower)) ||
+                (c.TipoCita != null && c.TipoCita.Nombre != null && RemoveDiacritics(c.TipoCita.Nombre).ToLower().Contains(searchTextLower)) ||
+                (c.FechaString != null && RemoveDiacritics(c.FechaString).ToLower().Contains(searchTextLower)));
         }
 
         CitasFiltradas.Clear();
@@ -70,6 +75,23 @@ public partial class CitasPage : ContentPage
         {
             CitasFiltradas.Add(cita);
         }
+    }
+
+    private string RemoveDiacritics(string text)
+    {
+        var normalizedString = text.Normalize(NormalizationForm.FormD);
+        var stringBuilder = new System.Text.StringBuilder();
+
+        foreach (var c in normalizedString)
+        {
+            var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+            if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+            {
+                stringBuilder.Append(c);
+            }
+        }
+
+        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
     }
 
     private void ListViewCitas_ItemTapped(object sender, ItemTappedEventArgs e)
