@@ -19,5 +19,7 @@ namespace PsicoSync.Model
         public int ClienteID { get; set; }
         public string Descripcion { get; set; }
         public string Observaciones { get; set; }
+        public string Estado { get; set; }
+        // Agendada, Finalizada
     }
 }

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PsicoSync.Model"
+             xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
+             x:Class="PsicoSync.Views.TipoCitasPage"
+             Title="TipoCitasPage">
+    
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="8, 12">
+
+        <Frame
+            IsVisible="False"
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            Padding="2">
+            <Grid ColumnDefinitions=".3*, .3*, .3*">
+                <Button
+                    Grid.Column="0"
+                    x:Name="btnTodo"
+                    Text="Todo"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"/>
+                <Button
+                    Grid.Column="1"
+                    x:Name="btnPacientes"
+                    Text="Pacientes"
+                    BackgroundColor="Transparent"
+                    TextColor="Black"/>
+                <Button
+                    Grid.Column="2"
+                    x:Name="btnPsicologos"
+                    Text="Psicólogos"
+                    BackgroundColor="Transparent"
+                    TextColor="Black"/>
+            </Grid>
+        </Frame>
+
+        <SearchBar
+            Grid.Row="1"
+            Placeholder="Buscar..."
+            Text="{Binding SearchText}"
+            SearchCommand="{Binding SearchCommand}"
+            SearchCommandParameter="{Binding SearchText}"/>
+
+        <ListView
+            Grid.Row="2"
+            x:Name="ListViewTipoCitas"
+            ItemTapped="ListViewTipoCitas_ItemTapped"
+            Refreshing="ListViewTipoCitas_Refreshing"
+            IsPullToRefreshEnabled="True"
+            ItemsSource="{Binding TipoCitas}"
+            HasUnevenRows="True"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:objTipoCita">
+                    <ViewCell>
+                        <StackLayout Padding="0, 8">
+                            <Frame HasShadow="False">
+                                <Grid 
+                                    RowDefinitions="Auto, Auto, Auto"
+                                    ColumnDefinitions="*, Auto">
+                                    <StackLayout Spacing="6">
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Nombre -->
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardCheck}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding Nombre}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Duracion  -->
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.User}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding DuracionMinutos, StringFormat='{0} minutos'}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Precio -->
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.MoneyBill}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Text="{Binding Precio, StringFormat='{0:C}'}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <!-- Flecha Derecha -->
+                                    <Label
+                                        Grid.Column="2"
+                                        Grid.Row="0"
+                                        Grid.RowSpan="3"
+                                        Text="{Static fontawesome:FontAwesomeIcons.CircleArrowRight}"
+                                        VerticalOptions="Center"
+                                        Style="{StaticResource LabelsIconosCitaHome}"
+                                        TextColor="{StaticResource Primary}"/>
+                                </Grid>
+                            </Frame>
+
+                        </StackLayout>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button
+            Grid.Row="3"
+            x:Name="btnAgregarTipoCita"
+            Text="Agregar Tipo de Cita"
+            BackgroundColor="{StaticResource Primary}"
+            TextColor="White"
+            Clicked="btnAgregarTipoCita_Clicked"/>
+
+    </Grid>
+</ContentPage>

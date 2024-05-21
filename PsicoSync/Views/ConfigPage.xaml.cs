@@ -6,4 +6,9 @@ public partial class ConfigPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void CerrarSesion_Clicked(object sender, EventArgs e)
+    {
+		Application.Current.MainPage = new LoginPage();
+    }
 }

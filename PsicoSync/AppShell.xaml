@@ -11,11 +11,16 @@
     <TabBar>
         <Tab Title="Citas">
             <ShellContent
-            ContentTemplate="{DataTemplate views:CitasPage}"/>
+            ContentTemplate="{DataTemplate views:CitasPage}"
+                Route="CitasPage"/>
         </Tab>
         <Tab Title="Resumen">
             <ShellContent
             ContentTemplate="{DataTemplate views:ResumenPage}"/>
+        </Tab>
+        <Tab Title="Catálogos">
+            <ShellContent
+            ContentTemplate="{DataTemplate views:CatalogosPage}"/>
         </Tab>
         <Tab Title="Config">
             <ShellContent

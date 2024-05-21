@@ -4,7 +4,7 @@
              x:Class="PsicoSync.Views.NuevaCitaPage"
              xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="Nueva Cita"
+             Title="Cita"
              Shell.TabBarIsVisible="False">
     <ScrollView>
         <StackLayout Padding="20">
@@ -420,8 +420,52 @@
                 </StackLayout>
             </Frame>
 
+            <!-- Observaciones -->
+            <Frame 
+                x:Name="layoutObservaciones" IsVisible="False"
+                BackgroundColor="{StaticResource Secondary}" BorderColor="{StaticResource Secondary}" 
+                Margin="0, 0, 0, 16" Padding="20, 18, 20, 8">
+                <StackLayout>
+                    <Label
+                        Text="Observaciones"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        Margin="0, 0, 0, 4"/>
+
+                    <Label 
+                        Text="Observaciones" 
+                        FontSize="Small"/>
+
+                    <Frame Padding="4, 2" Margin="0, 0, 0, 16">
+                        <Editor
+                            x:Name="observacionesEntry"
+                            VerticalOptions="StartAndExpand"
+                            HeightRequest="200"
+                            Keyboard="Chat"
+                            Placeholder="Escriba aquí las observaciones de la cita..."/>
+                    </Frame>
+                </StackLayout>
+            </Frame>
+
+
             <Button Text="Guardar" 
-                    Clicked="OnSaveButtonClicked" />
+                    Clicked="OnSaveButtonClicked"
+                    Margin="0, 0, 0, 12"/>
+
+            <Button
+                x:Name="btnFinalizar"
+                Text="Finalizar"
+                Clicked="btnFinalizar_Clicked"
+                IsVisible="False"
+                BackgroundColor="{StaticResource Primary}"
+                Margin="0, 0, 0, 12"/>
+
+            <Button 
+                x:Name="btnCancelar"
+                Text="Cancelar"
+                Clicked="btnCancelar_Clicked"
+                IsVisible="False"
+                BackgroundColor="{StaticResource Red}"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

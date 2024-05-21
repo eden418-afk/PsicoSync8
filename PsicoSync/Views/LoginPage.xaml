@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PsicoSync.Views.LoginPage"
+             Title="LoginPage">
+
+    <ScrollView HorizontalOptions="Fill">
+
+        <StackLayout Margin="20,0" VerticalOptions="CenterAndExpand">
+            <Image  
+                HorizontalOptions="Center" 
+                VerticalOptions="Center"
+                Source="psicosync_logo_letras_centro.png"/>
+            
+            <!--  Email  -->
+            <Frame Padding="4, 2" Margin="0, 0, 0, 20">
+                <Entry
+                    x:Name="emailEntry"
+                    Placeholder="Correo"/>
+            </Frame>
+
+            <!--  Password  -->
+            <Frame Padding="4, 2" Margin="0, 0, 0, 36">
+                <Entry
+                    x:Name="passwordEntry"
+                    Placeholder="Contraseña"/>
+            </Frame>
+
+            <!--  boton login  -->
+            <Button
+                x:Name="btnLogin"
+                Text="Login"
+                Clicked="OnLoginClicked"/>
+
+            <ActivityIndicator 
+                x:Name="syncIndicator"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
+             x:Class="PsicoSync.Views.CatalogosPage"
+             Title="Catálogos">
+    <ScrollView>
+        <StackLayout>
+            
+            <Frame>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTipoCitasTapped"/>
+                </Frame.GestureRecognizers>
+                <StackLayout>
+                    <Label
+                        Text="{Static fontawesome:FontAwesomeIcons.ClipboardList}"
+                        FontFamily="FAS"
+                        FontSize="50"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                    <Label
+                        Text="Tipos de Citas"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnClientesTapped"/>
+                </Frame.GestureRecognizers>
+                <StackLayout>
+                    <Label
+                        Text="{Static fontawesome:FontAwesomeIcons.Users}"
+                        FontFamily="FAS"
+                        FontSize="50"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                    <Label
+                        Text="Clientes"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHistorialCitasTapped"/>
+                </Frame.GestureRecognizers>
+                <StackLayout>
+                    <Label
+                        Text="{Static fontawesome:FontAwesomeIcons.Clock}"
+                        FontFamily="FAS"
+                        FontSize="50"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                    <Label
+                        Text="Historial de Citas"
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+                </StackLayout>
+            </Frame>
+
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

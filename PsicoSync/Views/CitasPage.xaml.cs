@@ -8,18 +8,16 @@ namespace PsicoSync.Views;
 
 public partial class CitasPage : ContentPage
 {
-    ServicioCita servicioCitas = new ServicioCita();
+    ServicioCita servicioCitas = new();
     ObservableCollection<objCita> Citas { get; set; }
 
-    ColorHandler Colores = new ColorHandler();
+    ColorHandler Colores = new();
 	public CitasPage()
 	{
 		InitializeComponent();
         BindingContext = this;
 
-        Citas = new ObservableCollection<objCita>();
-
-        BindingContext = this;
+        Citas = [];
     }
 
     protected override void OnAppearing()
@@ -42,7 +40,14 @@ public partial class CitasPage : ContentPage
     private void ListViewCitas_ItemTapped(object sender, ItemTappedEventArgs e)
     {
         objCita cita = e.Item as objCita;
-        Shell.Current.Navigation.PushAsync(new CitaPage(cita), true);
+
+        var navigationParameter = new ShellNavigationQueryParameters
+        {
+            { "Cita", cita }
+        };
+
+        Shell.Current.GoToAsync(nameof(NuevaCitaPage), true, navigationParameter);
+
     }
 
     private void btnTodo_Clicked(object sender, EventArgs e)

@@ -10,10 +10,9 @@
             Padding="30,0"
             VerticalOptions="StartAndExpand">
 
-            <Label
-                HorizontalOptions="Center"
-                FontSize="Title"
-                Text="Configuración"/>
+            <Button
+                Text="Cerrar Sesión"
+                Clicked="CerrarSesion_Clicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

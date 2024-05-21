@@ -10,11 +10,11 @@ namespace PsicoSync.Helpers
     {
         public Color GetColor(string color)
         {
-            //return (Color)Application.Current.Resources[color];
+            //return (Color)Application.Current.Resources.MergedDictionaries.First().Keys[color];
             return Color.FromArgb(color);
         }
 
-        public Color Primary => GetColor("#512BD4");
+        public Color Primary => GetColor("#388E3C");
         public Color White => GetColor("#FFFFFF");
         public Color Black => GetColor("#000000");
     }

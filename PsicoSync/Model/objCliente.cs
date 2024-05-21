@@ -11,6 +11,8 @@ namespace PsicoSync.Model
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
+        public string Tipo { get; set; }
+        // Psicologo, Paciente
         public string Nombre { get; set; }
         public int Edad { get; set; }
         public string Ocupacion { get; set; }
