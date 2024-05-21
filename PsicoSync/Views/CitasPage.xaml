@@ -18,7 +18,7 @@
             Grid.Row="0"
             HorizontalOptions="Center"
             Padding="2">
-            <Grid ColumnDefinitions=".3*, .3*, .3*">
+            <Grid ColumnDefinitions=".33*, .33*, .33*">
                 <Button
                     Grid.Column="0"
                     x:Name="btnTodo"
@@ -43,20 +43,29 @@
             </Grid>
         </Frame>
 
-        <SearchBar
+        <Frame
             Grid.Row="1"
-            Placeholder="Buscar..."
-            Text="{Binding SearchText}"
-            SearchCommand="{Binding SearchCommand}"
-            SearchCommandParameter="{Binding SearchText}"/>
-
+            Padding="16, 2"
+            Margin="16, 8">
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                <Label
+                    VerticalOptions="Center"
+                    Text="{Static fontawesome:FontAwesomeIcons.MagnifyingGlass}"
+                    Style="{StaticResource LabelsIconosCitaHome}"/>
+                <Entry
+                    Grid.Column="1"
+                    Text="{Binding SearchText}"
+                    Placeholder="Buscar..."/>
+            </Grid>
+        </Frame>
+        
         <ListView
             Grid.Row="2"
             x:Name="ListViewCitas"
             ItemTapped="ListViewCitas_ItemTapped"
             Refreshing="ListViewCitas_Refreshing"
             IsPullToRefreshEnabled="True"
-            ItemsSource="{Binding Citas}"
+            ItemsSource="{Binding CitasFiltradas}"
             HasUnevenRows="True"
             SeparatorVisibility="None">
             <ListView.ItemTemplate>
@@ -97,6 +106,20 @@
                                             <Label 
                                                 Grid.Column="1"
                                                 Text="{Binding Cliente.Nombre}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Cita o Renta -->
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardList}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding TipoCita.Nombre}"
                                                 Style="{StaticResource LabelsCitaHome}"/>
 
                                         </Grid>

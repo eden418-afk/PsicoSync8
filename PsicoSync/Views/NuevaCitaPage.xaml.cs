@@ -20,10 +20,13 @@ public partial class NuevaCitaPage : ContentPage
         {
             cita = value;
             OnPropertyChanged();
-            PintarCita();
-            btnCancelar.IsVisible = true;
-            layoutObservaciones.IsVisible = true;
-            btnFinalizar.IsVisible = true;
+            if (Cita.ID != 0)
+            {
+                PintarCita();
+                btnCancelar.IsVisible = true;
+                layoutObservaciones.IsVisible = true;
+                btnFinalizar.IsVisible = true;
+            }
         }
     }
 	public NuevaCitaPage(ServicioCliente servicioCliente, ServicioTipoCita servicioTipoCita)
@@ -124,6 +127,9 @@ public partial class NuevaCitaPage : ContentPage
     private void GuardarAtributosCita()
     {
         DateTime fecha = fechaPicker.Date + horaPicker.Time;
+
+        if (Cita == null)
+            Cita = new();
 
         Cita.Tipo = tipoEventoPicker.SelectedItem.ToString();
         Cita.Modalidad = modalidadPicker.SelectedItem.ToString();

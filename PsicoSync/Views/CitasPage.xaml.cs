@@ -1,4 +1,3 @@
-using Microsoft.Maui.Controls.StyleSheets;
 using PsicoSync.Helpers;
 using PsicoSync.Model;
 using PsicoSync.Servicios;
@@ -10,14 +9,18 @@ public partial class CitasPage : ContentPage
 {
     ServicioCita servicioCitas = new();
     ObservableCollection<objCita> Citas { get; set; }
+    ObservableCollection<objCita> CitasFiltradas { get; set; }
 
     ColorHandler Colores = new();
-	public CitasPage()
+
+    string filtroTipo = "Todo";
+    public CitasPage()
 	{
 		InitializeComponent();
         BindingContext = this;
 
         Citas = [];
+        CitasFiltradas = [];
     }
 
     protected override void OnAppearing()
@@ -33,8 +36,40 @@ public partial class CitasPage : ContentPage
         foreach (var cita in citas)
         {
             Citas.Add(cita);
+            CitasFiltradas.Add(cita);
         }
         ListViewCitas.ItemsSource = Citas;
+    }
+
+    private void FiltrarCitas()
+    {
+        var citasFiltradas = Citas.AsEnumerable();
+
+        if (filtroTipo == "Citas")
+        {
+            citasFiltradas = citasFiltradas.Where(c => c.Tipo == "Cita");
+        }
+        else if (filtroTipo == "Rentas")
+        {
+            citasFiltradas = citasFiltradas.Where(c => c.Tipo == "Renta");
+        }
+
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            var searchTextLower = SearchText.ToLower();
+            citasFiltradas = citasFiltradas.Where(c =>
+                (c.Tipo != null && c.Tipo.ToLower().Contains(searchTextLower)) ||
+                (c.Modalidad != null && c.Modalidad.ToLower().Contains(searchTextLower)) ||
+                (c.Cliente != null && c.Cliente.Nombre != null && c.Cliente.Nombre.ToLower().Contains(searchTextLower)) ||
+                (c.TipoCita != null && c.TipoCita.Nombre != null && c.TipoCita.Nombre.ToLower().Contains(searchTextLower)) ||
+                (c.FechaString != null && c.FechaString.ToLower().Contains(searchTextLower)));
+        }
+
+        CitasFiltradas.Clear();
+        foreach (var cita in citasFiltradas)
+        {
+            CitasFiltradas.Add(cita);
+        }
     }
 
     private void ListViewCitas_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -52,6 +87,9 @@ public partial class CitasPage : ContentPage
 
     private void btnTodo_Clicked(object sender, EventArgs e)
     {
+        filtroTipo = "Todo";
+        FiltrarCitas();
+
         btnTodo.BackgroundColor = Colores.Primary;
         btnTodo.TextColor = Colores.White;
         btnCitas.BackgroundColor = Colores.White;
@@ -62,6 +100,9 @@ public partial class CitasPage : ContentPage
 
     private void btnCitas_Clicked(object sender, EventArgs e)
     {
+        filtroTipo = "Citas";
+        FiltrarCitas();
+
         btnCitas.BackgroundColor = Colores.Primary;
         btnCitas.TextColor = Colores.White;
         btnTodo.BackgroundColor = Colores.White;
@@ -72,6 +113,9 @@ public partial class CitasPage : ContentPage
 
     private void btnRentas_Clicked(object sender, EventArgs e)
     {
+        filtroTipo = "Rentas";
+        FiltrarCitas();
+
         btnRentas.BackgroundColor = Colores.Primary;
         btnRentas.TextColor = Colores.White;
 
@@ -90,5 +134,20 @@ public partial class CitasPage : ContentPage
     {
         CargarCitas();
         ListViewCitas.EndRefresh();
+    }
+
+    private string searchText;
+    public string SearchText
+    {
+        get => searchText;
+        set
+        {
+            if (searchText != value)
+            {
+                searchText = value;
+                OnPropertyChanged();
+                FiltrarCitas();
+            }
+        }
     }
 }

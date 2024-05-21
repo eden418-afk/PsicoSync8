@@ -1,5 +1,4 @@
 ﻿using PsicoSync.Model;
-using Xamarin.Google.Crypto.Tink.Signature;
 
 namespace PsicoSync.Servicios
 {
@@ -25,7 +24,7 @@ namespace PsicoSync.Servicios
             {
                 cita.Cliente = clientes.Where(c => c.ID == cita.ClienteID).FirstOrDefault();
                 cita.TipoCita = tipoCitas.Where(t => t.ID == cita.TipoCitaID).FirstOrDefault();
-                cita.FechaString = cita.Fecha.ToString("dd MMM yyyy");
+                cita.FechaString = cita.Fecha.ToString("dd MMM yyyy HH:mm");
             }
 
             return citas;
