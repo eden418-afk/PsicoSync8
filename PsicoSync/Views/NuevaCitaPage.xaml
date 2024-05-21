@@ -448,9 +448,11 @@
             </Frame>
 
 
-            <Button Text="Guardar" 
-                    Clicked="OnSaveButtonClicked"
-                    Margin="0, 0, 0, 12"/>
+            <Button 
+                x:Name="btnGuardar"
+                Text="Guardar" 
+                Clicked="OnSaveButtonClicked"
+                Margin="0, 0, 0, 12"/>
 
             <Button
                 x:Name="btnFinalizar"

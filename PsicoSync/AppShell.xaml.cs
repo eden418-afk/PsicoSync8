@@ -14,6 +14,7 @@ namespace PsicoSync
             Routing.RegisterRoute(nameof(ClientesPage), typeof(ClientesPage));
             Routing.RegisterRoute(nameof(TipoCitasPage), typeof(TipoCitasPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(HistorialCitasPage), typeof(HistorialCitasPage));
         }
     }
 }

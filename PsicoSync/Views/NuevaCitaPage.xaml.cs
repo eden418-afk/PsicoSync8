@@ -26,6 +26,13 @@ public partial class NuevaCitaPage : ContentPage
                 btnCancelar.IsVisible = true;
                 layoutObservaciones.IsVisible = true;
                 btnFinalizar.IsVisible = true;
+
+                if (Cita.Estado == "Finalizada")
+                {
+                    btnCancelar.IsVisible = false;
+                    btnFinalizar.IsVisible = false;
+                    btnGuardar.IsVisible = false;
+                }
             }
         }
     }

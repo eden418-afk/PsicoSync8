@@ -12,7 +12,7 @@ namespace PsicoSync.Servicios
 
         }
 
-        public async Task<List<objCita>> GetItemsAsync()
+        public async Task<List<objCita>> GetItemsAsync(bool soloCitasFinalizadas=false)
         {
             await Init();
             var citas = await Database.Table<objCita>().ToListAsync();
@@ -25,6 +25,15 @@ namespace PsicoSync.Servicios
                 cita.Cliente = clientes.Where(c => c.ID == cita.ClienteID).FirstOrDefault();
                 cita.TipoCita = tipoCitas.Where(t => t.ID == cita.TipoCitaID).FirstOrDefault();
                 cita.FechaString = cita.Fecha.ToString("dd MMM yyyy HH:mm");
+            }
+
+            if (soloCitasFinalizadas)
+            {
+                citas = citas.Where(c => "Finalizada".Equals(c.Estado)).ToList();
+            }
+            else
+            {
+                citas = citas.Where(c => "Agendada".Equals(c.Estado)).ToList();
             }
 
             return citas;

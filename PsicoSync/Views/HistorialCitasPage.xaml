@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:PsicoSync.Model"
+             xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
+             x:Class="PsicoSync.Views.HistorialCitasPage"
+             Title="Historial de Citas">
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="8, 12">
+
+        <!--<Label
+            HorizontalOptions="Center"
+            FontSize="Title"
+            Text="Citas"/>-->
+
+        <!-- Create a layout with three buttons that when i click on one of them the background of it changes and the others stay the same-->
+        <Frame
+            Grid.Row="0"
+            HorizontalOptions="Center"
+            Padding="2">
+            <Grid ColumnDefinitions=".33*, .33*, Auto">
+                <Button
+                    Grid.Column="0"
+                    x:Name="btnTodo"
+                    Text="Todo"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="White"
+                    Clicked="btnTodo_Clicked"/>
+                <Button
+                    Grid.Column="1"
+                    x:Name="btnCitas"
+                    Text="Citas"
+                    BackgroundColor="Transparent"
+                    TextColor="Black"
+                    Clicked="btnCitas_Clicked"/>
+                <Button
+                    Grid.Column="2"
+                    x:Name="btnRentas"
+                    Text="Rentas"
+                    BackgroundColor="Transparent"
+                    TextColor="Black"
+                    Clicked="btnRentas_Clicked"/>
+            </Grid>
+        </Frame>
+
+        <Frame
+            Grid.Row="1"
+            Padding="16, 2"
+            Margin="16, 8">
+            <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                <Label
+                    VerticalOptions="Center"
+                    Text="{Static fontawesome:FontAwesomeIcons.MagnifyingGlass}"
+                    Style="{StaticResource LabelsIconosCitaHome}"/>
+                <Entry
+                    Grid.Column="1"
+                    Text="{Binding SearchText}"
+                    Placeholder="Buscar..."/>
+            </Grid>
+        </Frame>
+
+        <ListView
+            Grid.Row="2"
+            x:Name="ListViewCitas"
+            ItemTapped="ListViewCitas_ItemTapped"
+            Refreshing="ListViewCitas_Refreshing"
+            IsPullToRefreshEnabled="True"
+            ItemsSource="{Binding CitasFiltradas}"
+            HasUnevenRows="True"
+            SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:objCita">
+                    <ViewCell>
+                        <StackLayout Padding="0, 8">
+                            <Frame HasShadow="False">
+                                <Grid 
+                                    RowDefinitions="Auto, Auto, Auto"
+                                    ColumnDefinitions="*, Auto">
+                                    <StackLayout Spacing="6">
+                                        <Grid ColumnDefinitions="Auto, .2*, .6*" ColumnSpacing="10">
+                                            <!-- Cita o Renta -->
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardCheck}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding Tipo}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="2"
+                                                Text="{Binding Modalidad}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Cliente -->
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.User}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding Cliente.Nombre}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Cita o Renta -->
+                                            <Label
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.ClipboardList}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Column="1"
+                                                Text="{Binding TipoCita.Nombre}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+
+                                        </Grid>
+
+                                        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                                            <!-- Fecha -->
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="{Static fontawesome:FontAwesomeIcons.Calendar}"
+                                                Style="{StaticResource LabelsIconosCitaHome}"/>
+
+                                            <Label 
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Text="{Binding FechaString}"
+                                                Style="{StaticResource LabelsCitaHome}"/>
+                                        </Grid>
+                                    </StackLayout>
+
+                                    <!-- Flecha Derecha -->
+                                    <Label
+                                        Grid.Column="2"
+                                        Grid.Row="0"
+                                        Grid.RowSpan="3"
+                                        Text="{Static fontawesome:FontAwesomeIcons.CircleArrowRight}"
+                                        VerticalOptions="Center"
+                                        Style="{StaticResource LabelsIconosCitaHome}"
+                                        TextColor="{StaticResource Primary}"/>
+                                </Grid>
+                            </Frame>
+
+                        </StackLayout>
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

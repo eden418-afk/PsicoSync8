@@ -17,8 +17,8 @@ public partial class CatalogosPage : ContentPage
         await Shell.Current.GoToAsync(nameof(ClientesPage), true);
     }
 
-    private void OnHistorialCitasTapped(object sender, TappedEventArgs e)
+    private async void OnHistorialCitasTapped(object sender, TappedEventArgs e)
     {
-
+        await Shell.Current.GoToAsync(nameof(HistorialCitasPage), true);
     }
 }
