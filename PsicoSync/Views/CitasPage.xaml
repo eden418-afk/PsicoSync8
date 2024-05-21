@@ -4,7 +4,8 @@
              xmlns:models="clr-namespace:PsicoSync.Model"
              xmlns:fontawesome="clr-namespace:PsicoSync.Helpers"
              x:Class="PsicoSync.Views.CitasPage"
-             Title="Citas">
+             Title="Citas"
+             Shell.NavBarIsVisible="False">
 
     <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="8, 12">
 
@@ -18,7 +19,7 @@
             Grid.Row="0"
             HorizontalOptions="Center"
             Padding="2">
-            <Grid ColumnDefinitions=".33*, .33*, .33*">
+            <Grid ColumnDefinitions=".33*, .33*, Auto">
                 <Button
                     Grid.Column="0"
                     x:Name="btnTodo"

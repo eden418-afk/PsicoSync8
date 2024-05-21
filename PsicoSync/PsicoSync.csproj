@@ -59,7 +59,12 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\FontAwesome-Regular.otf" />
 	  <None Remove="Resources\Fonts\FontAwesome-Solid.otf" />
+	  <None Remove="Resources\Images\catalogo.png" />
+	  <None Remove="Resources\Images\clipboard.png" />
+	  <None Remove="Resources\Images\config.png" />
+	  <None Remove="Resources\Images\home.png" />
 	  <None Remove="Resources\Images\psicosync_logo_letras_centro.png" />
+	  <None Remove="Resources\Images\resumen.png" />
 	</ItemGroup>
 
 	<ItemGroup>

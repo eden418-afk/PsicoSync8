@@ -12,7 +12,8 @@
 
             <Button
                 Text="Cerrar Sesión"
-                Clicked="CerrarSesion_Clicked"/>
+                Clicked="CerrarSesion_Clicked"
+                Margin="0, 20"/>
 
         </VerticalStackLayout>
     </ScrollView>

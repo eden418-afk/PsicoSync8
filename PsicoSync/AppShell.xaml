@@ -9,20 +9,20 @@
     Title="PsicoSync">
 
     <TabBar>
-        <Tab Title="Citas">
+        <Tab Title="Citas" Icon="clipboard.png">
             <ShellContent
             ContentTemplate="{DataTemplate views:CitasPage}"
                 Route="CitasPage"/>
         </Tab>
-        <Tab Title="Resumen">
+        <Tab Title="Resumen" Icon="resumen.png">
             <ShellContent
             ContentTemplate="{DataTemplate views:ResumenPage}"/>
         </Tab>
-        <Tab Title="Catálogos">
+        <Tab Title="Catálogos" Icon="catalogo.png">
             <ShellContent
             ContentTemplate="{DataTemplate views:CatalogosPage}"/>
         </Tab>
-        <Tab Title="Config">
+        <Tab Title="Config" Icon="config.png">
             <ShellContent
             ContentTemplate="{DataTemplate views:ConfigPage}"/>
         </Tab>
