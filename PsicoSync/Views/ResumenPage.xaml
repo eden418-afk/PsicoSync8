@@ -8,36 +8,99 @@
     <ScrollView>
         <StackLayout>
 
-            <Frame
+            <!--<Frame
                 Padding="30"
                 Margin="30, 12"
-                HeightRequest="350"
                 BorderColor="{StaticResource Primary}">
                 <StackLayout>
-                    <Label x:Name="labelIngresos" FontSize="20" />
+                    <Label x:Name="labelIngresos" FontSize="20" Margin="0, 0, 0, 12"/>
+
+                    <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                    <Label Text="Citas Finalizadas: $1200" x:Name="labelCitasFinalizadasTotal" Margin="0, 2, 0, 4"/>
+                    <Label Text="Citas Agendadas: $2250" x:Name="labelCitasAgendadasTotal" Margin="0, 2, 0, 4"/>
+
+                    <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+                    
                     <micro:ChartView x:Name="preciosTotalesChart" HeightRequest="300"/>
                 </StackLayout>
-            </Frame>
+            </Frame>-->
 
             <Frame
                 Padding="30"
                 Margin="30, 12"
-                HeightRequest="350"
                 BorderColor="{StaticResource Primary}">
                 <StackLayout>
-                    <Label Text="Citas por Tipo de Cita" FontSize="20" />
+                    <Label Text="Citas totales: " x:Name="labelCitasTotales" FontSize="20" />
+
+                    <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                    <StackLayout x:Name="layoutTiposCitasCantidad"/>
+
+                    <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
                     <micro:ChartView x:Name="chartTipoCitasNumero" HeightRequest="300"/>
                 </StackLayout>
             </Frame>
 
             <Frame
-                Padding="30"
+                Padding="8, 30, 8, 10"
                 Margin="30, 12"
-                HeightRequest="350"
                 BorderColor="{StaticResource Primary}">
                 <StackLayout>
-                    <Label x:Name="labelTipoCitasIngresos" FontSize="20" />
+                    <StackLayout Margin="22, 0">
+                        <Label x:Name="labelTipoCitasIngresos" Text="Ingresos por tipos de cita" FontSize="20" />
+
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                        <StackLayout x:Name="layoutTiposCitasIngresos"/>
+
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                    </StackLayout>
+
                     <micro:ChartView x:Name="chartTipoCitasIngresos" HeightRequest="300"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                Padding="8, 30, 8, 10"
+                Margin="30, 12"
+                BorderColor="{StaticResource Primary}">
+                <StackLayout>
+                    <StackLayout Margin="22, 0">
+                        <Label x:Name="labelCitasRentasIngresosTotal" Text="Ingresos por citas y rentas" FontSize="20" />
+
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                        <Label Text="Citas Finalizadas: $1200" x:Name="labelCitasIngresosTotal" Margin="0, 2, 0, 4"/>
+                        <Label Text="Rentas Finalizadas: $2250" x:Name="labelRentasIngresosTotal" Margin="0, 2, 0, 4"/>
+
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                    </StackLayout>
+
+                    <micro:ChartView x:Name="chartCitasRentasIngresos" HeightRequest="300"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                Padding="8, 30, 8, 10"
+                Margin="30, 12"
+                BorderColor="{StaticResource Primary}">
+                <StackLayout>
+                    <StackLayout Margin="22, 0">
+                        <Label x:Name="labelPsicologosTotal" Text="Ingresos por psicólogo" FontSize="20" />
+
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                        <StackLayout x:Name="layoutPsicologosIngresos"/>
+
+                        <BoxView HeightRequest="1" Color="{StaticResource Gray300}"/>
+
+                    </StackLayout>
+
+                    <micro:ChartView x:Name="chartPsicologosIngresos" HeightRequest="300"/>
                 </StackLayout>
             </Frame>
 
